@@ -53,6 +53,8 @@ how install
                 ->asReverse()
                 ->calculate()
                 ->format('Y-m-d H:i:s');
+                
+                // result 2019-01-31 21:40:20
 
 ```
 
