@@ -280,6 +280,28 @@ class WorkingDateTime
     }
 
     /**
+     * @param array $days
+     *
+     * @return WorkingDateTime
+     */
+    public function setWeekends(array $days): self
+    {
+        $this->_weekends = $days;
+        return $this;
+    }
+
+    /**
+     * @param array $dates
+     *
+     * @return WorkingDateTime
+     */
+    public function setExceptionDates(array $dates): self
+    {
+        $this->_exceptionDates = $dates;
+        return $this;
+    }
+
+    /**
      * @see WorkingDateTime::$_exceptionDates
      *
      * @param \DateTime $dateTime
