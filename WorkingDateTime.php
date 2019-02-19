@@ -3,21 +3,19 @@
  * PHP 7.0
  * Created by PhpStorm.
  *
- * @author    : Oleh Boiko <mackrais@gmail.com> | <http://mackrais.com>
+ * @author    : Oleh Boiko <support@mackrais.com> | <https://mackrais.com>
  * @license   MIT License
  * @copyright Copyright (c) 2016 - 2018, MackRais
  */
 
-namespace mackrais\datetime;
-
-use DateTime;
+namespace common\components;
 
 class WorkingDateTime
 {
     /**
      * @var int
      */
-    protected $_dayHourStart = 10;
+    protected $_dayHourStart = 6;
 
     /**
      * @var int
@@ -27,7 +25,7 @@ class WorkingDateTime
     /**
      * @var int
      */
-    protected $_dayHourEnd = 19;
+    protected $_dayHourEnd = 23;
 
     /**
      * @var int
@@ -99,6 +97,11 @@ class WorkingDateTime
      */
     protected $_dateFrom;
 
+    /**
+     * @var bool
+     */
+    protected $_reverse = false;
+
 
     /**
      * WorkingDateTime constructor.
@@ -109,16 +112,21 @@ class WorkingDateTime
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
+     * @throws \Exception
      */
-    function calculate(): DateTime
+    function calculate(): \DateTime
     {
         try {
-            $datetime = new DateTime($this->_dateFrom);
+            $datetime = new \DateTime($this->_dateFrom);
             $endOfDay = clone $datetime;
             $endOfDay->setTime($this->_dayHourEnd, $this->_dayMinutesEnd); //set end of working day time
             $interval = $this->generateIntervalString();
-            $datetime->add(new \DateInterval($interval));
+            if($this->_reverse){
+                $datetime->sub(new \DateInterval($interval));
+            }else{
+                $datetime->add(new \DateInterval($interval));
+            }
             if ($datetime > $endOfDay) {
                 $seconds = $datetime->getTimestamp() - $endOfDay->getTimestamp();
                 while (true) {
@@ -142,8 +150,8 @@ class WorkingDateTime
                 }
             }
             return $datetime;
-        } catch (\Exception $e) {
-            return new DateTime();
+        } catch (\Throwable $e) {
+            return new \DateTime();
         }
     }
 
@@ -264,19 +272,27 @@ class WorkingDateTime
     }
 
     /**
+     * @return $this
+     */
+    public function asReverse(): self{
+        $this->_reverse = true;
+        return $this;
+    }
+
+    /**
      * @see WorkingDateTime::$_exceptionDates
      *
-     * @param DateTime $dateTime
+     * @param \DateTime $dateTime
      *
      * @return bool
      */
-    protected function isExceptionDate(DateTime $dateTime): bool
+    protected function isExceptionDate(\DateTime $dateTime): bool
     {
         if (!empty($this->_exceptionDates)) {
             $continue = false;
             foreach ($this->_exceptionDates as $eDate) {
-                $eMonthAndDay = DateTime::createFromFormat('m-d', $eDate);
-                $eFullDate = DateTime::createFromFormat('Y-m-d', $eDate);
+                $eMonthAndDay = \DateTime::createFromFormat('m-d', $eDate);
+                $eFullDate = \DateTime::createFromFormat('Y-m-d', $eDate);
                 if (!empty($eMonthAndDay) && $dateTime->format('md') == $eMonthAndDay->format('md')) {
                     $continue = true;
                 }
