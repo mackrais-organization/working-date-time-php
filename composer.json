@@ -1,0 +1,62 @@
+{
+    "name": "mackrais-organization/working-date-time-php",
+    "description": "A PHP library for working date-time calculations that considers working hours, weekends, and holidays.",
+    "keywords": [
+        "datetime", "date", "time", "working-time", "business-hours",
+        "working-date-time", "work-schedule", "task-scheduler", "calendar",
+        "shift-management", "business-days", "non-working-days", "weekends"
+    ],
+    "homepage": "https://github.com/mackrais-organization/working-date-time-php",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleh Boiko",
+            "email": "developer@mackrais.com",
+            "role": "Creator"
+        }
+    ],
+    "support": {
+        "email": "support@mackrais.com",
+        "issues": "https://github.com/mackrais-organization/working-date-time-php/issues",
+        "source": "https://github.com/mackrais-organization/working-date-time-php"
+    },
+    "require": {
+        "php": ">=8.3",
+        "psr/clock": "^1.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^1.12",
+        "phpstan/phpstan-phpunit": "^1.4",
+        "phpunit/phpunit": "^11.3",
+        "slam/phpstan-extensions": "^6.4",
+        "squizlabs/php_codesniffer": "^3.10",
+        "rregeer/phpunit-coverage-check": "^0.3.1",
+        "thecodingmachine/phpstan-strict-rules": "^1.0"
+    },
+    "suggest": {
+        "nesbot/carbon": "For advanced date manipulation",
+        "doctrine/dbal": "If database integration is required"
+    },
+    "scripts": {
+        "ci:code-style-fix": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php -v",
+        "ci:phpunit": [
+            "XDEBUG_MODE=coverage vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=clover-coverage.xml",
+            "vendor/bin/coverage-check clover-coverage.xml 100"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "MackRais\\DateTime\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "/tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MackRais\\DateTime\\Tests\\": "tests/"
+        }
+    }
+}
