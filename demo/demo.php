@@ -5,13 +5,13 @@
  *
  * @author    : Oleh Boiko <mackrais@gmail.com> | <http://mackrais.com>
  * @license   MIT License
- * @copyright Copyright (c) 2016 - 2018, MackRais
+ * @copyright Copyright (c) 2016 - 2025, MackRais
  */
 
 require_once 'WorkingDateTime.php';
 
 // create new object
-$workingDateTime = new \mackrais\datetime\WorkingDateTime();
+$workingDateTime = new \MackRais\DateTime\WorkingDateTime();
 
 ?>
 
