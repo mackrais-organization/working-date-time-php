@@ -1,0 +1,17 @@
+checks:
+  php: true
+
+filter:
+  paths:
+    - "src"
+  excluded_paths:
+    - "vendor"
+    - "tests"
+
+before_commands:
+  - "composer self-update"
+  - "composer install --no-interaction --prefer-dist --no-suggest"
+
+branches:
+  only:
+    - "*"
