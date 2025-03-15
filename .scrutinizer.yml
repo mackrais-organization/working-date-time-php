@@ -2,13 +2,6 @@ build:
   image: default-bionic
 
   nodes:
-    build:
-      tests:
-        override:
-          - command: XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
-            coverage:
-              file: coverage.clover
-              format: clover
 
     analysis:
       tests:
@@ -16,7 +9,7 @@ build:
           - php-scrutinizer-run
 
 filter:
-  excluded_paths: [tests/*]
+  excluded_paths: [tests/*, vendor/*]
 
 checks:
   php:
